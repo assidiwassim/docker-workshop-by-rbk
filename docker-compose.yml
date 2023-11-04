@@ -1,0 +1,31 @@
+version: '3.9'  # Docker Compose version being used
+name: docker-workshop-stack  # name of the Docker stack
+services:
+
+  app:  # Service named 'app'
+    container_name: docker-workshop-app  # Custom name for the app container
+    restart: always  # Restart policy for the app container
+    build: .  # Location of the Dockerfile for building the app container
+    ports:  # Ports to expose for the app container
+      - '3001:3000'  # Map port 3000 of the container to port 3001 on the host
+    depends_on:  # Dependencies for the app container
+      - mongodb  # Specifies the service this service depends on
+    networks: 
+          - docker-workshop-network  # Connect the app service to the network
+
+  mongodb:  # Service named 'mongodb'
+    container_name: docker-workshop-mongodb  # Custom name for the mongodb container
+    image: mongo:latest  # Docker image to be used for the mongodb container
+    ports:  # Ports to expose for the mongodb container
+      - '27018:27017'  # Map port 27017 of the container to port 27018 on the host
+    volumes: #  volume to persist data outside the container
+      - db:/data/db  # Map the MongoDB data directory to a directory on the host machine
+    networks: 
+      - docker-workshop-network  # Connect the mongodb service to the network
+
+networks:
+  docker-workshop-network:  # Declaration of the 'docker-workshop-network' network
+    driver: bridge  # Specify the driver for the network
+
+volumes:
+  db:  # Declaration of the 'db' volume
