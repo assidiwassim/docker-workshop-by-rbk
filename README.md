@@ -49,7 +49,6 @@ docker run -d --name docker-workshop-app \
     -p 3001:3000 \
     --network=docker-workshop-network \
     --restart=always \
-    --link docker-workshop-mongodb:mongodb \
     docker-workshop-app
 
 
@@ -65,6 +64,8 @@ docker run -d --name docker-workshop-app \
      -p 3001:3000 \
      docker-workshop-app
 
+# Run the mongodb container (simple command): 
+ docker run -d -p 27018:27017 mongo:latest
 
 
 

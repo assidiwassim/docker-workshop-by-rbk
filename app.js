@@ -14,7 +14,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => {
-  res.send("Hello World !");
+  res.send("Hello World - Le bon développeur community !");
 });
 
 app.get("/items", (req, res) => {
@@ -24,7 +24,6 @@ app.get("/items", (req, res) => {
 });
 
 app.post("/items/add", (req, res) => {
-  console.log("req.body", req.body);
   const newItem = new Item({
     name: req.body.name,
   });
