@@ -1,6 +1,6 @@
 # Docker Workshop By RBK
 
-> Simple example of a dockerized Nodejs/Mongodb app
+> Simple example of a dockerized Nodejs/Mongodb app.
 
 ## Quick Start.
 
