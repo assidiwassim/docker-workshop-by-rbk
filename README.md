@@ -2,7 +2,7 @@
 
 > Simple example of a dockerized Nodejs/Mongodb app
 
-## Quick Start
+## Quick Start.
 
 ```bash
 ##########################################################################################
