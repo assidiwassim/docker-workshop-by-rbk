@@ -5,8 +5,8 @@ services:
   app:  # Service named 'app'
     container_name: docker-workshop-app  # Custom name for the app container
     restart: always  # Restart policy for the app container
-    #image: assidiwassimdev/my-img:latest
-    build: .  # Location of the Dockerfile for building the app container
+    image: assidiwassimdev/my-img:latest
+    #build: .  # Location of the Dockerfile for building the app container
     ports:  # Ports to expose for the app container
       - '3001:3000'  # Map port 3000 of the container to port 3001 on the host
     depends_on:  # Dependencies for the app container
