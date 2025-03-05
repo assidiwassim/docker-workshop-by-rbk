@@ -1,31 +1,36 @@
 version: '3.9'  # Docker Compose version being used
-name: docker-workshop-stack  # name of the Docker stack
+
+# Define the name of the Docker stack
+name: nodejs-app-stack  
+
 services:
-
-  app:  # Service named 'app'
-    container_name: img  # Custom name for the app container
-    image: assidiwassimdev/img:latest
-    #build: .  # Location of the Dockerfile for building the app container
-    ports:  # Ports to expose for the app container
-      - '3002:3000'  # Map port 3000 of the container to port 3001 on the host
-    depends_on:  # Dependencies for the app container
-      - mongodb  # Specifies the service this service depends on
+  # Node.js application service
+  nodejs-app:  
+    container_name: nodejs-app-container  # Custom name for the Node.js container
+    build: .  # Location of the Dockerfile to build the app image
+    ports:  
+      - '3002:3000'  # Map port 3000 inside the container to port 3002 on the host
+    depends_on:  
+      - mongodb  # Ensure MongoDB service starts before this service
     networks: 
-          - docker-workshop-network  # Connect the app service to the network
-
-  mongodb:  # Service named 'mongodb'
-    container_name: docker-workshop-mongodb  # Custom name for the mongodb container
-    image: mongo:latest  # Docker image to be used for the mongodb container
-    ports:  # Ports to expose for the mongodb container
-      - '27018:27017'  # Map port 27017 of the container to port 27018 on the host
-    volumes: #  volume to persist data outside the container
-      - db:/data/db  # Map the MongoDB data directory to a directory on the host machine
+      - nodejs-app-network  # Connect the Node.js app service to the custom network
+    
+  # MongoDB database service
+  mongodb:  
+    container_name: mongodb-container  # Custom name for the MongoDB container
+    image: mongo:latest  # Use the latest MongoDB image from Docker Hub
+    ports:  
+      - '27018:27017'  # Map MongoDB's default port 27017 to 27018 on the host
+    volumes:  
+      - db:/data/db  # Persist MongoDB data using a named volume
     networks: 
-      - docker-workshop-network  # Connect the mongodb service to the network
+      - nodejs-app-network  # Connect MongoDB to the custom network
 
+# Define custom Docker network
 networks:
-  docker-workshop-network:  # Declaration of the 'docker-workshop-network' network
-    driver: bridge  # Specify the driver for the network
+  nodejs-app-network:  
+    driver: bridge  # Use the bridge driver for network isolation
 
+# Define named volumes for persistent data storage
 volumes:
-  db:  # Declaration of the 'db' volume
+  db:  # Named volume to persist MongoDB data
